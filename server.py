@@ -63,6 +63,10 @@ class Handler(SimpleHTTPRequestHandler):
         super().__init__(*args, directory=WEBROOT, **kwargs)
 
     def do_GET(self):
+        # Aldri server hemmeligheter, selv om de ligger i webroot.
+        if self.path.lstrip("/").lower().startswith("secrets"):
+            self.send_error(404, "Not Found")
+            return
         if self.path.startswith("/api/"):
             self.handle_proxy()
         else:

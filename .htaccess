@@ -1,0 +1,20 @@
+# ── Parkering Bergen – produksjonskonfig (Apache/LiteSpeed, f.eks. Hostinger) ──
+
+RewriteEngine On
+
+# Rut frontend-kallet /api/freespaces til PHP-proxyen.
+RewriteRule ^api/freespaces/?$ api/freespaces.php [L,QSA]
+
+# ── Sikkerhet: blokker direkte nedlasting av hemmeligheter ──
+# secrets.json skal aldri kunne hentes via nettleseren.
+<FilesMatch "^secrets.*\.json$">
+  Require all denied
+</FilesMatch>
+
+# Ikke server server.py eller andre ikke-relevante kildefiler.
+<FilesMatch "\.(py|md)$">
+  Require all denied
+</FilesMatch>
+
+# Standard dokument
+DirectoryIndex index.html

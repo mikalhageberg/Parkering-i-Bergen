@@ -31,6 +31,27 @@ tokenene server-side. Du trenger kun Python 3 – ingen installasjon av pakker.
 `config.js` peker allerede på proxyen (`baseUrl: "/api"`), så ingenting mer
 trengs. Vil du bruke en annen port: `PORT=8080 python3 server.py`.
 
+## Deploy til Hostinger (produksjon)
+Hostinger kjører ikke en vedvarende Python-server, men støtter **statiske filer +
+PHP**. I produksjon brukes derfor `api/freespaces.php` i stedet for `server.py`
+(begge gjør det samme: proxy med Basic Auth som skjuler tokenene). `config.js`
+peker på `/api`, og `.htaccess` ruter `/api/freespaces` til PHP-filen – så
+frontend er identisk lokalt og i produksjon.
+
+**Steg:**
+1. I hPanel: bruk **Git-deploy** (ikke «import framework»-flyten, som krever et
+   gjenkjent rammeverk) og pek på repoet, eller last opp filene til `public_html`.
+2. Legg tokenene på serveren – velg én:
+   - **Miljøvariabler** (anbefalt): `PARKING_TOKEN` og `PARKING_TOKENKEY` i hPanel.
+   - **Eller** last opp `secrets.json` til samme mappe (den er gitignored og må
+     lastes opp manuelt; `.htaccess` blokkerer nedlasting av den).
+3. PHP må ha `curl`-utvidelsen aktivert (standard på Hostinger).
+4. Åpne domenet – appen henter nå live-data via PHP-proxyen.
+
+> Feilen «Unsupported framework or invalid project structure» kom fra Hostinger
+> sin rammeverk-deteksjon, som ikke kjenner igjen en Python-server. Med PHP-proxyen
+> + `.htaccess` deployer prosjektet som et vanlig statisk/PHP-nettsted.
+
 ## Hvorfor en proxy? (CORS)
 API-et bruker HTTP Basic Auth, og **CORS kan du ikke skru av selv** – det styres
 av Bergen Parkering sin server. To problemer oppstår hvis nettleseren kaller

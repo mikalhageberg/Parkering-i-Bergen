@@ -1,0 +1,12 @@
+# Hemmeligheter – API-tokens skal ALDRI inn i git
+secrets.json
+
+# Lokale verktøy-/editorinnstillinger
+.claude/
+
+# OS-filer
+.DS_Store
+Thumbs.db
+
+# Logger / midlertidig
+*.log

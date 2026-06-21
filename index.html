@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light only" />
+  <title>Ledige parkeringsplasser i Bergen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+            <rect x="3" y="3" width="18" height="18" rx="4" fill="#fff"/>
+            <path d="M8.5 17V7h4.2c2.1 0 3.5 1.3 3.5 3.3s-1.4 3.3-3.5 3.3h-1.9V17H8.5zm2.3-5.4h1.6c.9 0 1.5-.5 1.5-1.3s-.6-1.3-1.5-1.3h-1.6v2.6z" fill="#0a4ea3"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Parkering Bergen</h1>
+          <p>Ledige plasser i sanntid</p>
+        </div>
+      </div>
+
+      <div class="header-status">
+        <div class="refresh-timer" title="Tid til neste oppdatering">
+          <svg class="timer-ring" viewBox="0 0 36 36" width="44" height="44" aria-hidden="true">
+            <circle class="timer-ring-bg" cx="18" cy="18" r="16" />
+            <circle class="timer-ring-fg" cx="18" cy="18" r="16" />
+          </svg>
+          <span class="timer-count" id="countdown">60</span>
+        </div>
+        <div class="status-text">
+          <span class="updated-label">Sist oppdatert</span>
+          <span class="updated-time" id="lastUpdated">–</span>
+        </div>
+        <button class="refresh-btn" id="refreshBtn" title="Oppdater nå" aria-label="Oppdater nå">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 4v6h-6M1 20v-6h6"/>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span class="legend-item"><span class="dot dot-green"></span> God plass</span>
+      <span class="legend-item"><span class="dot dot-yellow"></span> Få plasser</span>
+      <span class="legend-item"><span class="dot dot-red"></span> Fullt</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="banner" class="banner hidden" role="status"></div>
+    <div id="grid" class="grid" aria-live="polite"></div>
+  </main>
+
+  <footer class="app-footer">
+    <p>Data fra Bergen Parkering · Oppdateres automatisk hvert 60. sekund</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
